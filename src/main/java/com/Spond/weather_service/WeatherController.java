@@ -37,10 +37,6 @@ public class WeatherController {
 		Event event = null;
 
 		//todo: Obviously need to be an API call to another system running in parallel
-		long now = System.currentTimeMillis();
-		long dayInMs = 24 * 60 * 60 * 1000;
-		long weekInMs = 7 * dayInMs;
-		long startOfWeek = now - (now % weekInMs); // Calculate the start of the current week
 
 		if (eventId == 1) {
 			event = new Event(1L, 59.9114, 10.7579, // Oslo Opera House
@@ -49,18 +45,18 @@ public class WeatherController {
 		} else if (eventId == 2) {
 			event = new Event(2L, 59.9074, 10.7224, // Aker Brygge
 					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000), // Start time in 2 days
-					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000) + (1 * 60 * 60 * 1000)); // End time 1 hours later
+					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000) + (1 * 60 * 60 * 1000)); // End time 1 hour later
 		} else if (eventId == 3) {
 			event = new Event(3L, 59.9138, 10.7387, // Royal Palace
 					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000), // Start time in 2 days
 					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000) + (2 * 60 * 60 * 1000)); // End time 2 hours later
 		} else if (eventId == 4) {
 			event = new Event(4L, 59.9441, 10.7200, // Vigeland Park
-					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000), // Start time in 1 days
+					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000), // Start time in 1 day
 					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000) + (2 * 60 * 60 * 1000)); // End time 2 hours later
 		} else if (eventId == 5) {
 			event = new Event(5L, 59.9146, 10.7489, // Oslo Central Station
-					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000), // Start time in 1 days
+					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000), // Start time in 1 day
 					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000) + (2 * 60 * 60 * 1000)); // End time 2 hours later
 		} else {
 			event = new Event(6L, 59.8939, 10.7784, // Holmenkollen Ski Jump

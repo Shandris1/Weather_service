@@ -24,7 +24,7 @@ public class WeatherService {
 
         ResponseEntity<String> response = getMetData(latitude, longitude);
 
-        String jsonString = response.getBody(); // Get the JSON string from the response
+        String jsonString = response.getBody();
 
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(jsonString);
