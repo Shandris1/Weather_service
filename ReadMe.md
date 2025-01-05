@@ -20,3 +20,4 @@ TODO:
 * Write tests that mock met.no endpoint
 
 There is basic API documentation available via http://localhost:8080/v3/api-docs 
+The endpoint is available by default on http://localhost:8080/api/v1/events/100/weather and can be tested using Insomnia
