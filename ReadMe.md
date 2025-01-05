@@ -19,3 +19,4 @@ TODO:
 * Put the whole project into docker for easy deploy
 * Write tests that mock met.no endpoint
 
+There is basic API documentation available via http://localhost:8080/v3/api-docs 

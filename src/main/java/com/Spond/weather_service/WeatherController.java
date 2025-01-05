@@ -3,6 +3,8 @@ package com.Spond.weather_service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +23,20 @@ public class WeatherController {
 	private WeatherService weatherService;
 
 	@GetMapping("/api/v1/events/{eventId}/weather")
-	public WeatherData getEventWeather(@PathVariable Long eventId) throws JsonProcessingException {
+	public ResponseEntity<?> getEventWeather(@PathVariable Long eventId) throws JsonProcessingException {
 		Event event = getEventLocation(eventId);
-
+		if (event == null) {
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body("error, Event with ID " + eventId + " not found.");
+        }
 		JsonNode forecastJson = weatherService.getWeatherData(event.getLatitude(),event.getLongitude());
 
 		WeatherData forecast = getNearestForecast(forecastJson,event.getStartTime(),event.getEndTime());
 
-		return forecast;
+		return ResponseEntity
+				.status(200)
+				.body(forecast);
 	}
 
 
@@ -58,7 +66,7 @@ public class WeatherController {
 			event = new Event(5L, 59.9146, 10.7489, // Oslo Central Station
 					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000), // Start time in 1 day
 					System.currentTimeMillis() + (1 * 24 * 60 * 60 * 1000) + (2 * 60 * 60 * 1000)); // End time 2 hours later
-		} else {
+		} else if (eventId == 6) {
 			event = new Event(6L, 59.8939, 10.7784, // Holmenkollen Ski Jump
 					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000), // Start time in 2 days
 					System.currentTimeMillis() + (2 * 24 * 60 * 60 * 1000) + (2 * 60 * 60 * 1000)); // End time 2 hours later
